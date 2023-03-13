@@ -36,6 +36,7 @@ let height = 0 // This will be computed based on the input stream
 // video from the camera. Obviously, we start at false.
 
 let streaming = false
+let isPhoned = false
 
 // The various HTML elements we need to configure or control. These
 // will be set by the startup() function.
@@ -125,6 +126,7 @@ function startup() {
 // captured.
 
 function clearphoto() {
+  isPhoned = false
   const context = canvas!.getContext('2d')
   context!.fillStyle = '#AAA'
   context!.fillRect(0, 0, canvas!.width, canvas!.height)
@@ -134,6 +136,10 @@ function clearphoto() {
 }
 
 function downloadImg() {
+  if (!isPhoned) {
+    alert('需要拍摄图片')
+    return
+  }
   const aLink = document.createElement('a')
   aLink.download = 'phone.png'
   aLink.href = photo?.getAttribute('src') as string
@@ -156,6 +162,7 @@ function takepicture() {
     // 展示图片
     const data = canvas!.toDataURL('image/png')
     photo!.setAttribute('src', data)
+    isPhoned = true
 
     canvas!.toBlob(
       (blob) => {
