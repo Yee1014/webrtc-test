@@ -6,18 +6,25 @@
     </p>
     <div class="camera">
       <video id="video">视频流目前不可用。</video>
-      <button id="startbutton">拍摄照片</button>
+      <button id="startbutton">
+        拍摄照片
+      </button>
     </div>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" />
     <div class="output">
-      <img id="photo" alt="捕获的图像会显示在这里。"/>
-      <button id="downloadbutton">下载照片</button>
+      <img
+        id="photo"
+        alt="捕获的图像会显示在这里。"
+      >
+      <button id="downloadbutton">
+        下载照片
+      </button>
     </div>
     <p>
       访问我们的文章：<a
-      href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebRTC_API/Taking_still_photos">
-      使用 getUserMedia() 拍摄静态照片</a
-    >以详细了解此处使用的技术。
+        href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebRTC_API/Taking_still_photos"
+      >
+        使用 getUserMedia() 拍摄静态照片</a>以详细了解此处使用的技术。
     </p>
   </div>
 </template>
@@ -90,7 +97,7 @@ function startup() {
   /**
    * 监听视频是否可播放
    */
-  video.addEventListener('canplay', (ev) => {
+  video.addEventListener('canplay', () => {
     if (!streaming) {
       height = video!.videoHeight / (video!.videoWidth / width)
 

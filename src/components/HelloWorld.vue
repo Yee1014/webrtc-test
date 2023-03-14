@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
+defineProps<{msg: string}>()
+
 const title = ref('WebRTC 拍照')
 
 // 想要获取一个最接近 1280x720 的相机分辨率
@@ -8,7 +10,9 @@ const constraints = {
   audio: false,
   video: {
     // 帧率
-    frameRate: {ideal: 30, max: 45},
+    frameRate: {
+      ideal: 30, max: 45
+    },
     width: 'auto',
     height: 'auto',
     // width: {min: 640, ideal: 1280, max: 1920},
@@ -30,7 +34,7 @@ const attachVideo = (stream: MediaStream) => {
     // 防止在新的浏览器里使用它，应为它已经不再支持了
     video.src = window.URL.createObjectURL(stream)
   }
-  video!.onloadedmetadata = function (e) {
+  video!.onloadedmetadata = function () {
     video!.play()
   }
 }
@@ -80,15 +84,22 @@ onMounted(() => {
 <template>
   <h2>{{ title }}</h2>
   <ul class="d-list">
-    <li v-for="d in deviceList" :key="d.deviceId">
+    <li
+      v-for="d in deviceList"
+      :key="d.deviceId"
+    >
       {{
         d.kind + ': ' + d.label +
-        ' id = ' + d.deviceId
+          ' id = ' + d.deviceId
       }}
     </li>
   </ul>
-  <button @click="requestMedia">添加窗口</button>
-  <button @click="getCamera">添加摄像头</button>
+  <button @click="requestMedia">
+    添加窗口
+  </button>
+  <button @click="getCamera">
+    添加摄像头
+  </button>
   <div class="container">
     <video id="video">视频流目前不可用。</video>
   </div>
